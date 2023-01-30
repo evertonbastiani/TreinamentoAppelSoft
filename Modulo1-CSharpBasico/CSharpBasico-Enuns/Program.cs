@@ -1,4 +1,6 @@
-﻿public class Program
+﻿using CSharpBasico.Enumeradores;
+
+public class Program
 {
     //Constructor
     static void Main(string[] args)
@@ -17,9 +19,9 @@
     //Exemplo de Sobrecarga (Overload)
     static void ExibirRota(string origem, string destino, int duracao, decimal distancia)
     {
-        var valorFrete = calcularValorFrete(150, TipoProduto.NaoPereciveis);
+        var valorFrete = calcularValorFrete(150, TiposProdutos.NaoPereciveis);
         Console.WriteLine($"O caminhão vai partir de {origem} para {destino} com duração de {duracao} dias. Veja o valor do frete abaixo:");
-        Console.WriteLine($"O valor do frete será {valorFrete} reais.");
+        Console.WriteLine($"O valor do frete será {valorFrete} reais para o tipo de produto {TiposProdutos.NaoPereciveis}");
     }
 
     static decimal calcularValorFrete(decimal distancia)
@@ -28,18 +30,18 @@
         return (distancia * valorKm);
     }
 
-    static decimal calcularValorFrete(decimal distancia, TipoProduto tipoProduto)
+    static decimal calcularValorFrete(decimal distancia, TiposProdutos tipoProduto)
     {
         decimal valorKm = 0;
-        if (tipoProduto == TipoProduto.Combustiveis)
+        if (tipoProduto == TiposProdutos.Combustiveis)
         {
             valorKm = 500;
         }
-        if (tipoProduto == TipoProduto.Pereciveis)
+        if (tipoProduto == TiposProdutos.Pereciveis)
         {
             valorKm = 100;
         }
-        if (tipoProduto == TipoProduto.NaoPereciveis)
+        if (tipoProduto == TiposProdutos.NaoPereciveis)
         {
             valorKm = 55.9M;
         }
@@ -48,9 +50,3 @@
     }
 }
 
-public enum TipoProduto
-{
-    Combustiveis = 1,
-    Pereciveis = 2,
-    NaoPereciveis = 3
-}
