@@ -1,11 +1,24 @@
-﻿namespace Classes
+﻿using Classes.Concretes;
+using Classes.Statics;
+
+namespace Classes
 {
     internal class Program
     {
         static Frota frota = new Frota();
         static void Main(string[] args)
         {
-            Menu();
+            Carro carro= new Carro();
+            carro.ExibirMeioTransporte();
+            carro.tipoCombustivel();
+
+            Caminhao caminhao = new Caminhao();
+            caminhao.ExibirMeioTransporte();
+            caminhao.tipoCombustivel();
+
+            Console.ReadLine();
+
+            //Menu();
         }
 
         static void Menu()

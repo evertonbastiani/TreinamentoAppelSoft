@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes
+namespace Classes.Concretes
 {
     public class Frota
     {
         public string Descricao { get; set; }
         public List<Veiculo> Veiculos { get; set; }
 
-        public Frota() 
+        public Frota()
         {
-            this.Veiculos = new List<Veiculo>();
-        
+            Veiculos = new List<Veiculo>();
+
         }
 
         public void AdicionarVeiculo(Veiculo veiculo)
         {
-            this.Veiculos.Add(veiculo);
+            Veiculos.Add(veiculo);
         }
 
         public List<Veiculo> ListarVeiculos()
         {
-            return this.Veiculos;
+            return Veiculos;
         }
     }
 }

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes
+namespace Classes.Statics
 {
-    
+
     public static class Frete
     {
         private const decimal fatorCalculo = 5.98M;
 
         public static decimal CalcularFrete(decimal distancia)
         {
-            return (distancia * fatorCalculo);
+            return distancia * fatorCalculo;
         }
     }
 }
