@@ -8,17 +8,17 @@ namespace Classes
         static Frota frota = new Frota();
         static void Main(string[] args)
         {
-            Carro carro= new Carro();
-            carro.ExibirMeioTransporte();
-            carro.tipoCombustivel();
+            //Carro carro= new Carro();
+            //carro.ExibirMeioTransporte();
+            //carro.tipoCombustivel();
 
-            Caminhao caminhao = new Caminhao();
-            caminhao.ExibirMeioTransporte();
-            caminhao.tipoCombustivel();
+            //Caminhao caminhao = new Caminhao();
+            //caminhao.ExibirMeioTransporte();
+            //caminhao.tipoCombustivel();
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            //Menu();
+            Menu();
         }
 
         static void Menu()
