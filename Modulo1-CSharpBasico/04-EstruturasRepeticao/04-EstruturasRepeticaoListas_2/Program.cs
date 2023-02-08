@@ -12,6 +12,39 @@
         {
             var sair = "s";
 
+            //do
+            //{
+            //    Console.WriteLine("1- Incluir veículo");
+            //    Console.WriteLine("2- Listar veículos");
+            //    Console.WriteLine("3- Sair");
+            //    Console.Write("Informe a opção:");
+            //    var opcao = Console.ReadLine();
+
+            //    if (opcao == "1")
+            //    {
+            //        Console.Write("Informe o veículo:");
+            //        string veiculo = Console.ReadLine();
+            //        listFrota.Add(veiculo);
+            //    }
+            //    if (opcao == "2")
+            //    {
+            //        Console.WriteLine("Lista dos veículos cadastrados:");
+            //        foreach (var item in listFrota)
+            //        {
+            //            Console.WriteLine(item);
+            //        }
+            //        if(listFrota.Count == 0)
+            //        {
+            //            Console.WriteLine("Nenhum veículo foi cadastrado.");
+            //        }
+            //    }
+            //    if (opcao == "3")
+            //    {
+            //        Environment.Exit(0);
+            //    }
+            //} while (sair == "s");
+
+
             do
             {
                 Console.WriteLine("1- Incluir veículo");
@@ -19,29 +52,41 @@
                 Console.WriteLine("3- Sair");
                 Console.Write("Informe a opção:");
                 var opcao = Console.ReadLine();
+               
+                switch (opcao)
+                {
+                    case "1":
+                        {
 
-                if (opcao == "1")
-                {
-                    Console.Write("Informe o veículo:");
-                    string veiculo = Console.ReadLine();
-                    listFrota.Add(veiculo);
+                            Console.Write("Informe o veículo:");
+                            string veiculo = Console.ReadLine();
+                            listFrota.Add(veiculo);
+
+                            break;
+                        }
+                        case "2":
+                        {
+                            Console.WriteLine("Lista dos veículos cadastrados:");
+                            foreach (var item in listFrota)
+                            {
+                                Console.WriteLine(item);
+                            }
+                            if (listFrota.Count == 0)
+                            {
+                                Console.WriteLine("Nenhum veículo foi cadastrado.");
+                            }
+
+                            break;
+                        }
+                        case "3":
+                        {
+                            Environment.Exit(0);
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                if (opcao == "2")
-                {
-                    Console.WriteLine("Lista dos veículos cadastrados:");
-                    foreach (var item in listFrota)
-                    {
-                        Console.WriteLine(item);
-                    }
-                    if(listFrota.Count == 0)
-                    {
-                        Console.WriteLine("Nenhum veículo foi cadastrado.");
-                    }
-                }
-                if (opcao == "3")
-                {
-                    Environment.Exit(0);
-                }
+              
             } while (sair == "s");
         }
     }
