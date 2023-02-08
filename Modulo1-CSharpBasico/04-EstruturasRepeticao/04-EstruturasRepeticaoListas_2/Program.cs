@@ -12,6 +12,8 @@
         {
             var sair = "s";
 
+
+
             //do
             //{
             //    Console.WriteLine("1- Incluir veículo");
@@ -20,6 +22,7 @@
             //    Console.Write("Informe a opção:");
             //    var opcao = Console.ReadLine();
 
+                  //Instrução de seleção if
             //    if (opcao == "1")
             //    {
             //        Console.Write("Informe o veículo:");
@@ -45,6 +48,7 @@
             //} while (sair == "s");
 
 
+
             do
             {
                 Console.WriteLine("1- Incluir veículo");
@@ -52,7 +56,8 @@
                 Console.WriteLine("3- Sair");
                 Console.Write("Informe a opção:");
                 var opcao = Console.ReadLine();
-               
+
+                //Instrução de seleção switch
                 switch (opcao)
                 {
                     case "1":
