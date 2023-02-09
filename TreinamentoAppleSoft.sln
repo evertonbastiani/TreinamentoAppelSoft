@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Data", "Modulo3-DataB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-TratamentoExcecoes", "05-TratamentoExcecoes", "{142EB431-D8B2-4E06-897E-A37716AC4856}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TratamentoExcecoes", "Modulo1-CSharpBasico\05-TratamentoExcecoes\TratamentoExcecoes.csproj", "{ABCF7E6D-F84E-487B-8109-454D914380FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCF7E6D-F84E-487B-8109-454D914380FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCF7E6D-F84E-487B-8109-454D914380FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCF7E6D-F84E-487B-8109-454D914380FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCF7E6D-F84E-487B-8109-454D914380FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{8923F930-9106-4257-9C5E-3F9449B08AC2} = {E4C17A4F-609F-41BA-AB86-50DB1D4757C9}
 		{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C} = {9C942C32-02AC-4ECC-8B81-97F8BC520F3D}
 		{142EB431-D8B2-4E06-897E-A37716AC4856} = {BAFA4969-5D48-4044-AE2F-E704EAE2ED50}
+		{ABCF7E6D-F84E-487B-8109-454D914380FB} = {142EB431-D8B2-4E06-897E-A37716AC4856}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {372D840A-F2A4-45B6-9CAE-EAB0C9A02A79}
