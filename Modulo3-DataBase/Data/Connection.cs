@@ -2,7 +2,7 @@
 
 namespace Curso.Data
 {
-    public class Connection
+    internal class Connection : IDisposable
     {
         private readonly string _connectionString;
 
@@ -11,13 +11,20 @@ namespace Curso.Data
             _connectionString = connectionString;
         }
 
+        public void Dispose()
+        {
+            if (this != null)
+            {
+                this.Dispose();
+            }
+        }
+
         public MySqlConnection GetConnection()
         {
             MySqlConnection conn = null;
             try
             {
                 conn = new MySql.Data.MySqlClient.MySqlConnection(_connectionString);
-                conn.Open();
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
