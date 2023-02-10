@@ -13,5 +13,6 @@ namespace Curso.Data.Interfaces
         VeiculoDB Insert(VeiculoDB veiculoDB);
         bool Delete(long id);
         VeiculoDB Update(VeiculoDB veiculoDB);
+        VeiculoDB Get(long id);
     }
 }

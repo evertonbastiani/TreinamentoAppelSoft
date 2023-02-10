@@ -3,57 +3,90 @@ using Curso.Business.DTO;
 using Curso.Business.Interfaces;
 using Curso.Data.DB;
 using Curso.Data.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace Curso.Application
 {
     internal class Program
     {
-        static ITipoVeiculoDataOperaration tipoVeiculoDataOperaration = new TipoVeiculoDB();
-        static ITipoVeiculoBusinessOperation tipoVeiculoBusinessOperation = new TipoVeiculoBS(tipoVeiculoDataOperaration);
+        static ITipoVeiculoDataOperaration _tipoVeiculoDataOperaration = new TipoVeiculoDB();
+        static ITipoVeiculoBusinessOperation _tipoVeiculoBusinessOperation = new TipoVeiculoBS(_tipoVeiculoDataOperaration);
+
+        static IVeiculoDataOperation _veiculoDataOperation = new VeiculoDB();
+        static IVeiculoBusinessOperation _veiculoBusinessOperation = new VeiculoBS(_veiculoDataOperation);
         static void Main(string[] args)
         {
             do
             {
                 Console.WriteLine("Selecione a opção desejada");
-                Console.WriteLine("1 - Listar Tipos de Veículos");
-                Console.WriteLine("2 - Cadastrar Tipos de Veículos");
-                Console.WriteLine("3 - Atualizar Tipo de Veículo");
-                Console.WriteLine("4 - Excluir Tipo de Veículo");
-                Console.WriteLine("5 - Buscar Tipo de Veículo por Id");
-                Console.WriteLine("6- Sair");
+
+                Console.WriteLine("VEÍCULOS");
+                Console.WriteLine("1 - Listar");
+                Console.WriteLine("2 - Cadastrar");
+                Console.WriteLine("3 - Atualizar");
+                Console.WriteLine("4 - Buscar");
+                Console.WriteLine("5 - Excluir");
+
+                Console.WriteLine("TIPOS DE VEÍCULO");
+                Console.WriteLine("6 - Listar");
+                Console.WriteLine("7 - Cadastrar");
+                Console.WriteLine("8 - Atualizar");
+                Console.WriteLine("9 - Excluir");
+
+                Console.WriteLine("10- Sair");
+                Console.WriteLine();
                 Console.Write("Opção: ");
                 var opcaoSelecionada = Console.ReadLine();
                 switch (opcaoSelecionada)
                 {
                     case "1":
                         {
-                            ListarTiposVeiculos();
+                            ListarVeiculos();
                             break;
                         }
                     case "2":
                         {
-                            CadastrarTipoVeiculo();
+                            CadastrarVeiculo();
+                            Console.ReadLine();
                             break;
                         }
                     case "3":
                         {
-                            AtualizarTipoVeiculo();
+                            AtualizarVeiculo();
                             break;
                         }
                     case "4":
                         {
-                            ExcluirTipoVeiculo();
+                            BuscarVeiculo();
+                            Console.ReadLine();
                             break;
                         }
                     case "5":
                         {
-                            BuscarVeiculo();
+                            ExcluirVeiculo();
+                            Console.ReadLine();
                             break;
                         }
                     case "6":
                         {
-
-                            Environment.Exit(0);
+                            ListarTiposVeiculos();
+                            Console.ReadLine();
+                            break;
+                        }
+                    case "7":
+                        {
+                            CadastrarTipoVeiculo();
+                            Console.ReadLine(); 
+                            break;
+                        }
+                    case "8":
+                        {
+                            AtualizarTipoVeiculo();
+                            break;
+                        }
+                    case "9":
+                        {
+                            ExcluirTipoVeiculo();
                             break;
                         }
 
@@ -70,20 +103,123 @@ namespace Curso.Application
 
         }
 
-        private static void BuscarVeiculo()
+        private static void ExcluirVeiculo()
         {
-            Console.Write("Informe o código do tipo: ");
-            var codigoTipo = Convert.ToInt64(Console.ReadLine());
-            var tipoVeiculo = tipoVeiculoBusinessOperation.Get(codigoTipo);
+            Console.Write("Informe o código do veículo: ");
+            var codigo = Convert.ToInt64(Console.ReadLine());
 
-            Console.WriteLine($"Id: {tipoVeiculo.Id}");
-            Console.WriteLine($"Descrição: {tipoVeiculo.Descricao}");
+            var veiculo = BuscarVeiculo(codigo);
+            if (veiculo != null && veiculo.Id > 0)
+            {
+                Console.WriteLine($"Tem certeza que deseja excluir o veículo {veiculo.Marca} {veiculo.Modelo} ? S/N: ");
+
+                var opcao = Console.ReadLine().ToUpper();
+                if (opcao == "S")
+                {
+                    bool excluido =  _veiculoBusinessOperation.Delete(veiculo.Id);
+                    if (excluido)
+                    {
+                        Console.WriteLine("Veículo excluído com sucesso");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Operação cancelada");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Veículo não encontrado.");
+            }
+        }
+
+        private static void AtualizarVeiculo()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void CadastrarVeiculo()
+        {
+            Console.WriteLine("CADASTRO DE VEÍCULO");
+            VeiculoDTO veiculo = new VeiculoDTO();
+
+            Console.Write("Placa: ");
+            veiculo.Placa = Console.ReadLine();
+
+            Console.Write("Marca: ");
+            veiculo.Marca = Console.ReadLine();
+
+            Console.Write("Modelo: ");
+            veiculo.Modelo = Console.ReadLine();
+
+            Console.Write("Cor: ");
+            veiculo.Cor = Console.ReadLine();
+
+            Console.Write("Ano: ");
+            veiculo.Ano = Convert.ToInt16( Console.ReadLine());
+
+            Console.WriteLine();
+            Console.WriteLine("Selecione o tipo:");
+            ListarTiposVeiculos();
+
+            Console.Write("Tipo: ");
+            var idTipo = Convert.ToInt64( Console.ReadLine());
+            veiculo.Tipo = BuscarTipoVeiculo(idTipo);
+
+            veiculo = _veiculoBusinessOperation.Insert(veiculo);
+            if (veiculo.Id > 0)
+            {
+                Console.WriteLine("Veículo cadastrado com sucesso.");                
+            }
+
+
+        }
+
+        private static void ListarVeiculos()
+        {
+            List<VeiculoDTO> listVeiculoDto = _veiculoBusinessOperation.List();
+            if(listVeiculoDto.Count == 0)
+            {
+                Console.WriteLine("Ainda não foi cadastrado nenhum veículo.");
+            }
+            foreach (var veiculo in listVeiculoDto)
+            {
+                Console.WriteLine($"Id: {veiculo.Id}");
+                Console.WriteLine($"{veiculo.Marca} {veiculo.Modelo}");                
+                Console.WriteLine($"Placa: {veiculo.Placa}");              
+                Console.WriteLine($"Ano: {veiculo.Ano}");
+                Console.WriteLine($"Cor: {veiculo.Cor}");
+                Console.WriteLine($"Tipo: {veiculo.Tipo.Descricao}");
+            }
             Console.ReadLine();
         }
 
-        private static TipoVeiculoDTO BuscarVeiculo(long Id)
+        private static void BuscarVeiculo()
         {
-            return tipoVeiculoBusinessOperation.Get(Id);
+            Console.Write("Informe o código veiculo: ");
+            var codigo = Convert.ToInt64(Console.ReadLine());
+            var veiculo = BuscarVeiculo(codigo);
+
+            if (veiculo != null && veiculo.Id == codigo)
+            {
+                Console.WriteLine($"Id: {veiculo.Id}");
+                Console.WriteLine($"{veiculo.Marca} {veiculo.Modelo}");
+                Console.WriteLine($"Placa: {veiculo.Placa}");
+                Console.WriteLine($"Ano: {veiculo.Ano}");
+                Console.WriteLine($"Cor: {veiculo.Cor}");
+                Console.WriteLine($"Tipo: {veiculo.Tipo.Descricao}");
+            }
+            else
+            {
+                Console.WriteLine("Veículo não encontrado.");
+            }
+
+        }
+
+        private static VeiculoDTO BuscarVeiculo(long Id)
+        {
+            return _veiculoBusinessOperation.Get(Id);
         }
 
         private static void ExcluirTipoVeiculo()
@@ -91,15 +227,15 @@ namespace Curso.Application
             Console.Write("Informe o código do tipo: ");
             var codigoTipo = Convert.ToInt64(Console.ReadLine());
 
-            var tipoExcluir = BuscarVeiculo(codigoTipo);
-            if(tipoExcluir != null && tipoExcluir.Id > 0)
+            var tipoExcluir = BuscarTipoVeiculo(codigoTipo);
+            if (tipoExcluir != null && tipoExcluir.Id > 0)
             {
                 Console.WriteLine($"Tem certeza que deseja excluir o tipo {tipoExcluir.Descricao} ? S/N: ");
-               
+
                 var opcao = Console.ReadLine().ToUpper();
-                if(opcao == "S")
+                if (opcao == "S")
                 {
-                    bool excluido = tipoVeiculoBusinessOperation.Delete(tipoExcluir.Id);
+                    bool excluido = _tipoVeiculoBusinessOperation.Delete(tipoExcluir.Id);
                     if (excluido)
                     {
                         Console.WriteLine("Tipo excluído com sucesso");
@@ -109,13 +245,18 @@ namespace Curso.Application
                 {
                     Console.WriteLine("Operação cancelada");
                 }
-               
+
             }
             else
             {
                 Console.WriteLine("Tipo não encontrado.");
             }
-            
+
+        }
+
+        private static TipoVeiculoDTO BuscarTipoVeiculo(long codigoTipo)
+        {
+            return _tipoVeiculoBusinessOperation.Get(codigoTipo);
         }
 
         private static void AtualizarTipoVeiculo()
@@ -123,7 +264,7 @@ namespace Curso.Application
             Console.Write("Informe o código do tipo: ");
             var codigoTipo = Convert.ToInt64(Console.ReadLine());
 
-            var tipoAtualizar = BuscarVeiculo(codigoTipo);
+            var tipoAtualizar = BuscarTipoVeiculo(codigoTipo);
             Console.WriteLine("Dados do tipo atual");
             Console.WriteLine($"Id: {tipoAtualizar.Id}");
             Console.WriteLine($"Descrição: {tipoAtualizar.Descricao}");
@@ -132,7 +273,7 @@ namespace Curso.Application
             Console.WriteLine("Dados para atualizar");
             Console.Write("Descrição: ");
             tipoAtualizar.Descricao = Console.ReadLine();
-            tipoAtualizar = tipoVeiculoBusinessOperation.Update(tipoAtualizar);
+            tipoAtualizar = _tipoVeiculoBusinessOperation.Update(tipoAtualizar);
 
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("Dados atualizadosl");
@@ -148,22 +289,22 @@ namespace Curso.Application
             Console.Write("Descrição: ");
             tipoVeiculoDTO.Descricao = Console.ReadLine();
 
-            tipoVeiculoDTO = tipoVeiculoBusinessOperation.Insert(tipoVeiculoDTO);
+            tipoVeiculoDTO = _tipoVeiculoBusinessOperation.Insert(tipoVeiculoDTO);
             Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
             Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
-            Console.ReadLine();
+           // Console.ReadLine();
         }
 
         static void ListarTiposVeiculos()
         {
 
-            List<TipoVeiculoDTO> listTiposDTO = tipoVeiculoBusinessOperation.List();
+            List<TipoVeiculoDTO> listTiposDTO = _tipoVeiculoBusinessOperation.List();
             foreach (var tipoVeiculo in listTiposDTO)
             {
                 Console.WriteLine($"Id: {tipoVeiculo.Id}");
                 Console.WriteLine($"Desrição: {tipoVeiculo.Descricao}");
             }
-            Console.ReadLine();
+            
         }
 
 

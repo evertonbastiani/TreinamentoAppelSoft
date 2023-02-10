@@ -19,11 +19,11 @@ namespace Curso.Data.DB
             List<TipoVeiculoDB> listTipos = new List<TipoVeiculoDB>();
             try
             {
-                string sqlTipos = "select * from tipo_veiculo order by id";
+                string sqlList = "select * from tipo_veiculo order by id";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
 
-                    using (MySqlCommand command = new MySqlCommand(sqlTipos, mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand(sqlList, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         using (MySqlDataReader reader = command.ExecuteReader())
@@ -63,10 +63,10 @@ namespace Curso.Data.DB
         {
             try
             {
-                string sqlTipos = $"insert into tipo_veiculo(descricao)values('{tipoVeiculoDB.Descricao}'); SELECT LAST_INSERT_ID()";
+                string sqlInsert = $"insert into tipo_veiculo(descricao)values('{tipoVeiculoDB.Descricao}'); SELECT LAST_INSERT_ID()";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
-                    using (MySqlCommand command = new MySqlCommand(sqlTipos, mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand(sqlInsert, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         command.ExecuteNonQuery();
@@ -88,10 +88,10 @@ namespace Curso.Data.DB
         {
             try
             {
-                string sqlTipos = $"delete from tipo_veiculo where id = {id}";
+                string sqlDelete = $"delete from tipo_veiculo where id = {id}";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
-                    using (MySqlCommand command = new MySqlCommand(sqlTipos, mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand(sqlDelete, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         var result = command.ExecuteNonQuery();
@@ -111,10 +111,10 @@ namespace Curso.Data.DB
         {
             try
             {
-                string sqlTipos = $"update tipo_veiculo set descricao ='{tipoVeiculoDB.Descricao}' where id ={tipoVeiculoDB.Id}";
+                string sqlUpdate = $"update tipo_veiculo set descricao ='{tipoVeiculoDB.Descricao}' where id ={tipoVeiculoDB.Id}";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
-                    using (MySqlCommand command = new MySqlCommand(sqlTipos, mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand(sqlUpdate, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         command.ExecuteNonQuery();
@@ -136,11 +136,11 @@ namespace Curso.Data.DB
             TipoVeiculoDB tipoVeiculoDB = new TipoVeiculoDB();
             try
             {
-                string sqlTipos = $"select * from tipo_veiculo where id = {id}";
+                string sqlGet = $"select * from tipo_veiculo where id = {id}";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
 
-                    using (MySqlCommand command = new MySqlCommand(sqlTipos, mySqlConnection))
+                    using (MySqlCommand command = new MySqlCommand(sqlGet, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         using (MySqlDataReader reader = command.ExecuteReader())
