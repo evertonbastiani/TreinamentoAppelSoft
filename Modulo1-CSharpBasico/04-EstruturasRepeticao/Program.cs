@@ -1,168 +1,112 @@
 ﻿namespace EstruturasRepeticao
 {
-    internal class Program
-    {
-        //arrays
-        static int[] arrayNumeros = { 1, 3, 5, 6 };
-        static string[] arrayNomes = { "Alex", "Ana", "Pedro" };
+	internal class Program
+	{
+		//arrays
+		static int[] arrayNumeros = { 1, 3, 5, 6 };
+		static string[] arrayNomes = { "Alex", "Ana", "Pedro" };
 
-        //listas
-        static List<int> listNumeros = new List<int>();
-        static List<string> listNomes = new List<string>();
+		//listas
+		static List<int> listNumeros = new List<int>();
+		static List<string> listNomes = new List<string>();	
 
         static void Main(string[] args)
-        {
+		{
+			//Inicialização das Listas
+			listNumeros.Add(1);
+			listNumeros.Add(3);
+			listNumeros.Add(5);
+			listNumeros.Add(6);
 
-            EstruturasComArray();
-            EstruturaComListas();
-            Console.ReadLine();
-        }
-
-        static void EstruturaComListas()
-        {
-            //Inicialização das listas
-            listNumeros.Add(1);
-            listNumeros.Add(3);      
-            listNumeros.Add(5); 
-            listNumeros.Add(6);
-
-            listNomes.Add("Alex");
-            listNomes.Add("Ana");
-            listNomes.Add("Pedro");
-
-            //Estrutura For...
-            Console.WriteLine("Estrutura For");
-            for (int i = 0; i < listNumeros.Count; i++)
-            {
-                Console.WriteLine(listNumeros[i]);
-            }
-
-            for (int i = 0; i < listNomes.Count; i++)
-            {
-                Console.WriteLine(listNomes[i]);
-            }
-
-            //Estrutura ForEach...
-            Console.WriteLine();
-            Console.WriteLine("Estrutura ForEach");
-            foreach (var numero in listNumeros)
-            {
-                Console.WriteLine(numero);
-            }
-
-            foreach (var nome in listNomes)
-            {
-                Console.WriteLine(nome);
-            }
-
-            //Estrutura Do While
-            Console.WriteLine();
-            Console.WriteLine("Estrutura Do While");
-            Console.Write("Informe o nome.");
-            var condicaoParada = "Ana";
-
-            do
-            {
-                Console.Write("Informe o nome: ");
-                condicaoParada = Console.ReadLine();
-                Console.WriteLine($"Condição de parada = Ana. Nome informado = {condicaoParada}");
-
-            } while (condicaoParada != "Ana");
+			listNomes.Add("Alex");
+			listNomes.Add("Ana");
+			listNomes.Add("Pedro");
 
 
-        }
+			Estrutura_For();
+			Estrutura_ForEach();
+			Estrutura_While();
+			Estrutura_DoWhile();
+			Console.ReadLine();
+		}		
 
-        static void EstruturasComArray()
-        {
-            //Estrutura For...
-            Console.WriteLine("Estrutura For");
-            for (int i = 0; i < arrayNumeros.Length; i++)
-            {
-                Console.WriteLine(arrayNumeros[i]);
-            }
+		static void Estrutura_While()
+		{
+			Console.WriteLine("Estrutura While");
+			int i = 0;
+			while (arrayNomes.Length > i)
+			{
+				Console.WriteLine(arrayNomes[i]);
+				i++;
+			}
+		}
 
-            for (int i = 0; i < arrayNomes.Length; i++)
-            {
-                Console.WriteLine(arrayNomes[i]);
-            }
+		static void Estrutura_For()
+		{
+			Console.WriteLine("Estrutura For com Arrays");
+			for (int i = 0; i < arrayNumeros.Length; i++)
+			{
+				Console.WriteLine(arrayNumeros[i]);
+			}
 
-            //Estrutura ForEach...
-            Console.WriteLine();
-            Console.WriteLine("Estrutura ForEach");
-            foreach (var numero in arrayNumeros)
-            {
-                Console.WriteLine(numero);
-            }
+			for (int i = 0; i < arrayNomes.Length; i++)
+			{
+				Console.WriteLine(arrayNomes[i]);
+			}
 
-            foreach (var nome in arrayNomes)
-            {
-                Console.WriteLine(nome);
-            }
+			Console.WriteLine();
+			Console.WriteLine("Estrutura For com Listas");
+			for (int i = 0; i < listNumeros.Count; i++)
+			{
+				Console.WriteLine(listNumeros[i]);
+			}
 
-            //Estrutura Do While
-            Console.WriteLine();
-            Console.WriteLine("Estrutura Do While");
-            Console.Write("Informe o nome.");
-            var condicaoParada = "Ana";
+			for (int i = 0; i < listNomes.Count; i++)
+			{
+				Console.WriteLine(listNomes[i]);
+			}
+		}
 
-            do
-            {
-                Console.Write("Informe o nome: ");
-                condicaoParada = Console.ReadLine();
-                Console.WriteLine($"Condição de parada = Ana. Nome informado = {condicaoParada}");
+		static void Estrutura_ForEach()
+		{
+			Console.WriteLine();
+			Console.WriteLine("Estrutura ForEach com Arrays");
+			foreach (var numero in arrayNumeros)
+			{
+				Console.WriteLine(numero);
+			}
 
-            } while (condicaoParada != "Ana");
+			foreach (var nome in arrayNomes)
+			{
+				Console.WriteLine(nome);
+			}
 
+			Console.WriteLine();
+			Console.WriteLine("Estrutura ForEach com Listas");
+			foreach (var numero in listNumeros)
+			{
+				Console.WriteLine(numero);
+			}
 
-            //Estrutura_For();
-            //Estrutura_ForEach();
-            //Estrutura_DoWhile();
-        }
+			foreach (var nome in listNomes)
+			{
+				Console.WriteLine(nome);
+			}
+		}
 
-        //static void Estrutura_For()
-        //{
-        //    Console.WriteLine("Estrutura For");
-        //    for (int i = 0; i < arrayNumeros.Length; i++)
-        //    {
-        //        Console.WriteLine(arrayNumeros[i]);
-        //    }
+		static void Estrutura_DoWhile()
+		{
+			Console.WriteLine();
+			Console.WriteLine("Estrutura Do While");
+			var codicaoParada = "Ana";
+			int i = 0;
+			do
+			{
+				Console.WriteLine(arrayNomes[i]);
+				i++;
 
-        //    for (int i = 0; i < arrayNomes.Length; i++)
-        //    {
-        //        Console.WriteLine(arrayNomes[i]);
-        //    }
-        //}
+			} while (arrayNomes[i] == codicaoParada);
+		}
 
-        //static void Estrutura_ForEach()
-        //{
-        //    Console.WriteLine();
-        //    Console.WriteLine("Estrutura ForEach");
-        //    foreach (var numero in arrayNumeros)
-        //    {
-        //        Console.WriteLine(numero);
-        //    }
-
-        //    foreach (var nome in arrayNomes)
-        //    {
-        //        Console.WriteLine(nome);
-        //    }
-        //}
-
-        //static void Estrutura_DoWhile()
-        //{
-        //    Console.WriteLine();
-        //    Console.WriteLine("Estrutura Do While");
-        //    Console.Write("Informe o nome.");
-        //    var nome = "Ana";
-
-        //    do
-        //    {
-        //        Console.Write("Informe o nome: ");
-        //        nome = Console.ReadLine();
-        //        Console.WriteLine($"Condição de parada = Ana. Nome informado = {nome}");
-
-        //    } while (nome != "Ana");
-        //}
-
-    }
+	}
 }
