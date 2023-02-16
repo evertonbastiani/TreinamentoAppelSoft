@@ -18,7 +18,7 @@
             }
             catch (DivideByZeroException erroDivisao)
             {
-                Console.WriteLine(erroDivisao.Message);
+                Console.WriteLine($"{erroDivisao.Message} Divisão por zero não permitido.");
             }
             catch (Exception erro)
             {
@@ -36,5 +36,7 @@
             return a/b;
 
         }
+
+
     }
 }

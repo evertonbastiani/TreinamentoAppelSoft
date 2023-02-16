@@ -8,9 +8,9 @@
 
 		//listas
 		static List<int> listNumeros = new List<int>();
-		static List<string> listNomes = new List<string>();	
+		static List<string> listNomes = new List<string>();
 
-        static void Main(string[] args)
+		static void Main(string[] args)
 		{
 			//Inicialização das Listas
 			listNumeros.Add(1);
@@ -22,13 +22,12 @@
 			listNomes.Add("Ana");
 			listNomes.Add("Pedro");
 
-
 			Estrutura_For();
 			Estrutura_ForEach();
 			Estrutura_While();
 			Estrutura_DoWhile();
 			Console.ReadLine();
-		}		
+		}
 
 		static void Estrutura_While()
 		{
@@ -37,6 +36,13 @@
 			while (arrayNomes.Length > i)
 			{
 				Console.WriteLine(arrayNomes[i]);
+				i++;
+			}
+
+			i = 0;
+			while (listNomes.Count > i)
+			{
+				Console.WriteLine(listNomes[i]);
 				i++;
 			}
 		}
@@ -98,14 +104,14 @@
 		{
 			Console.WriteLine();
 			Console.WriteLine("Estrutura Do While");
-			var codicaoParada = "Ana";
+			var codicaoParada = "Pedro";
 			int i = 0;
 			do
 			{
-				Console.WriteLine(arrayNomes[i]);
+				Console.WriteLine(listNomes[i]);
 				i++;
 
-			} while (arrayNomes[i] == codicaoParada);
+			} while (listNomes[i] != codicaoParada);
 		}
 
 	}
