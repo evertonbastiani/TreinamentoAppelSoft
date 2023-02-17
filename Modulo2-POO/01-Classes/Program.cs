@@ -8,17 +8,7 @@ namespace Classes
         static Frota frota = new Frota();
         static void Main(string[] args)
         {
-            //Carro carro= new Carro();
-            //carro.ExibirMeioTransporte();
-            //carro.tipoCombustivel();
-
-            //Caminhao caminhao = new Caminhao();
-            //caminhao.ExibirMeioTransporte();
-            //caminhao.tipoCombustivel();
-
-            //Console.ReadLine();
-
-            Menu();
+           Menu();
         }
 
         static void Menu()
@@ -79,7 +69,9 @@ namespace Classes
 
         static void AdicionarVeiculoFrota()
         {
-            Veiculo veiculo = new Veiculo();
+			Console.WriteLine();
+			Console.WriteLine("Adicionar Veículo.");
+			Veiculo veiculo = new Veiculo();
 
             Console.WriteLine("Informe os dados do Veículo");
             Console.Write("Marca: ");
@@ -102,7 +94,8 @@ namespace Classes
         }
 
         static void ListarVeiculosFrota()
-        {          
+        {
+            Console.WriteLine();
             List<Veiculo> listVeiculos = frota.ListarVeiculos();
             Console.WriteLine("Frota de veículos:");
             foreach (var veiculo in listVeiculos)
@@ -116,6 +109,10 @@ namespace Classes
                 Console.WriteLine($"Cor: {veiculo.Cor}");
                 Console.WriteLine("-----------------------------------------");
                
+            }
+            if(listVeiculos.Count == 0)
+            {
+                Console.WriteLine("Ainda não existem veículos cadastrados na frota.");
             }
 
             Console.ReadLine();
