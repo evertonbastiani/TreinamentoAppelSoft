@@ -7,7 +7,7 @@ namespace Interfaces
     {
         static void Main(string[] args)
         {
-
+            
             IFrete frete = new Frete();
             var valor1 =  frete.CalcularFrete(150);
             var valor2 = frete.CalcularFrete(150, 3.2M);

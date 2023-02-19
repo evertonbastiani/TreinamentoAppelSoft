@@ -20,8 +20,9 @@ namespace LibFrotaCerta.Classes
         public TipoTransporte Tipo { get; set; }
 
         public virtual void Mover()
-        {
-            switch (this.Tipo)
+        {           
+
+            switch (Tipo)
             {
                 case TipoTransporte.Carro:
                     {
@@ -46,7 +47,7 @@ namespace LibFrotaCerta.Classes
                     }
                 default:
                     break;
-            }
+            }            
         }
     }
 
