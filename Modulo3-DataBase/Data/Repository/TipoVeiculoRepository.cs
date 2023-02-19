@@ -1,4 +1,5 @@
-﻿using Curso.Data.Interfaces;
+﻿using Curso.Domain.Entities;
+using Curso.Repository.Interfaces;
 using Microsoft.Win32.SafeHandles;
 using MySql.Data.MySqlClient;
 using System;
@@ -7,16 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Curso.Data.DB
+namespace Curso.Repository.Repository
 {
-    public class TipoVeiculoDB : BaseDB, ITipoVeiculoDataOperaration
+    public class TipoVeiculoRepository : Repository, ITipoVeiculoRepository
     {
-        public long Id { get; set; }
-        public string? Descricao { get; set; }
-
-        public List<TipoVeiculoDB> List()
+        public List<TipoVeiculo> List()
         {
-            List<TipoVeiculoDB> listTipos = new List<TipoVeiculoDB>();
+            List<TipoVeiculo> listTipos = new List<TipoVeiculo>();
             try
             {
                 string sqlList = "select * from tipo_veiculo order by id";
@@ -31,18 +29,11 @@ namespace Curso.Data.DB
                             while (reader.Read())
                             {
 
-                                TipoVeiculoDB tipoVeiculoDB = new TipoVeiculoDB();
+                                TipoVeiculo tipoVeiculoDB = new TipoVeiculo();
                                 tipoVeiculoDB.Id = reader.GetInt32("id");
                                 tipoVeiculoDB.Descricao = reader.GetString("descricao");
 
                                 listTipos.Add(tipoVeiculoDB);
-
-                                //Outra forma de adicionar.
-                                //listTipos.Add(new TipoVeiculoDB
-                                //{
-                                //    Id = reader.GetInt32("id"),
-                                //    Descricao = reader.GetString("descricao")
-                                //});
                             }
                         }
                         mySqlConnection.Close();
@@ -59,18 +50,18 @@ namespace Curso.Data.DB
             return listTipos;
         }
 
-        public TipoVeiculoDB Insert(TipoVeiculoDB tipoVeiculoDB)
+        public TipoVeiculo Insert(TipoVeiculo tipoVeiculo)
         {
             try
             {
-                string sqlInsert = $"insert into tipo_veiculo(descricao)values('{tipoVeiculoDB.Descricao}'); SELECT LAST_INSERT_ID()";
+                string sqlInsert = $"insert into tipo_veiculo(descricao)values('{tipoVeiculo.Descricao}'); SELECT LAST_INSERT_ID()";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
                     using (MySqlCommand command = new MySqlCommand(sqlInsert, mySqlConnection))
                     {
                         mySqlConnection.Open();
                         command.ExecuteNonQuery();
-                        tipoVeiculoDB.Id = command.LastInsertedId;
+                        tipoVeiculo.Id = command.LastInsertedId;
                         mySqlConnection.Close();
                     }
                 }
@@ -81,7 +72,7 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return tipoVeiculoDB;
+            return tipoVeiculo;
         }
 
         public bool Delete(long id)
@@ -107,11 +98,11 @@ namespace Curso.Data.DB
             }
         }
 
-        public TipoVeiculoDB Update(TipoVeiculoDB tipoVeiculoDB)
+        public TipoVeiculo Update(TipoVeiculo tipoVeiculo)
         {
             try
             {
-                string sqlUpdate = $"update tipo_veiculo set descricao ='{tipoVeiculoDB.Descricao}' where id ={tipoVeiculoDB.Id}";
+                string sqlUpdate = $"update tipo_veiculo set descricao ='{tipoVeiculo.Descricao}' where id ={tipoVeiculo.Id}";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
                     using (MySqlCommand command = new MySqlCommand(sqlUpdate, mySqlConnection))
@@ -128,12 +119,12 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return tipoVeiculoDB;
+            return tipoVeiculo;
         }
 
-        public TipoVeiculoDB Get(long id)
+        public TipoVeiculo Get(long id)
         {
-            TipoVeiculoDB tipoVeiculoDB = new TipoVeiculoDB();
+            TipoVeiculo tipoVeiculo = new TipoVeiculo();
             try
             {
                 string sqlGet = $"select * from tipo_veiculo where id = {id}";
@@ -147,8 +138,8 @@ namespace Curso.Data.DB
                         {
                             while (reader.Read())
                             {                               
-                                tipoVeiculoDB.Id = reader.GetInt32("id");
-                                tipoVeiculoDB.Descricao = reader.GetString("descricao");
+                                tipoVeiculo.Id = reader.GetInt32("id");
+                                tipoVeiculo.Descricao = reader.GetString("descricao");
                             }
                         }
                         mySqlConnection.Close();
@@ -161,7 +152,7 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return tipoVeiculoDB;
+            return tipoVeiculo;
         }
     }
 

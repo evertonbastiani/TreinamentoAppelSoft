@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Curso.Business.DTO
+namespace Curso.Domain.DTO
 {
     public class TipoVeiculoDTO
     {

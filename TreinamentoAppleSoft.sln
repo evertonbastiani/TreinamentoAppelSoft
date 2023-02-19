@@ -39,21 +39,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsandoHeranca", "Modulo2-PO
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modulo 3 - DataBase", "Modulo 3 - DataBase", "{E4C17A4F-609F-41BA-AB86-50DB1D4757C9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{9C942C32-02AC-4ECC-8B81-97F8BC520F3D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{9C942C32-02AC-4ECC-8B81-97F8BC520F3D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{B0077494-4F01-4C21-8F83-E62EC055D837}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B0077494-4F01-4C21-8F83-E62EC055D837}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Data", "Modulo3-DataBase\Data\Curso.Data.csproj", "{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Repository", "Modulo3-DataBase\Data\Curso.Repository.csproj", "{5CAFA472-CEED-4D6E-AAB8-D1C1BAC3576C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-TratamentoExcecoes", "05-TratamentoExcecoes", "{142EB431-D8B2-4E06-897E-A37716AC4856}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TratamentoExcecoes", "Modulo1-CSharpBasico\05-TratamentoExcecoes\TratamentoExcecoes.csproj", "{ABCF7E6D-F84E-487B-8109-454D914380FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Business", "Modulo3-DataBase\Business\Curso.Business.csproj", "{9C754AB4-2AC1-4A81-88F3-A54A455BE49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Domain", "Modulo3-DataBase\Business\Curso.Domain.csproj", "{9C754AB4-2AC1-4A81-88F3-A54A455BE49E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A0FA6289-1D47-48FE-AE15-D76B682D27D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Application", "Modulo3-DataBase\Application\Curso.Application.csproj", "{3DF1C1A9-DCEC-489A-9E8B-F112E8ADC9C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{7A4D7B6E-EA31-40DB-8126-AF3C1B071065}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curso.Service", "Modulo3-DataBase\Service\Curso.Service\Curso.Service.csproj", "{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +113,10 @@ Global
 		{3DF1C1A9-DCEC-489A-9E8B-F112E8ADC9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DF1C1A9-DCEC-489A-9E8B-F112E8ADC9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DF1C1A9-DCEC-489A-9E8B-F112E8ADC9C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +145,8 @@ Global
 		{9C754AB4-2AC1-4A81-88F3-A54A455BE49E} = {B0077494-4F01-4C21-8F83-E62EC055D837}
 		{A0FA6289-1D47-48FE-AE15-D76B682D27D8} = {E4C17A4F-609F-41BA-AB86-50DB1D4757C9}
 		{3DF1C1A9-DCEC-489A-9E8B-F112E8ADC9C5} = {A0FA6289-1D47-48FE-AE15-D76B682D27D8}
+		{7A4D7B6E-EA31-40DB-8126-AF3C1B071065} = {E4C17A4F-609F-41BA-AB86-50DB1D4757C9}
+		{805ABB4E-AAD5-4696-8CA9-3BC377733D1B} = {7A4D7B6E-EA31-40DB-8126-AF3C1B071065}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {372D840A-F2A4-45B6-9CAE-EAB0C9A02A79}

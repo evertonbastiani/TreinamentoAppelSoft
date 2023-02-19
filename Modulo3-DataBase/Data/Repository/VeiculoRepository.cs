@@ -1,4 +1,5 @@
-﻿using Curso.Data.Interfaces;
+﻿using Curso.Domain.Entities;
+using Curso.Repository.Interfaces;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -6,27 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Curso.Data.DB
+namespace Curso.Repository.Repository
 {
-    public class VeiculoDB: BaseDB, IVeiculoDataOperation
+    public class VeiculoRepository: Repository, IVeiculoRepository
     {
-        public long Id { get; set; }
-        public string ?Marca { get; set; }
-        public string ?Modelo { get; set; }
-        public int Ano { get; set; }
-        public string ?Cor { get; set; }
-        public string ?Placa { get; set; }
+        private readonly ITipoVeiculoRepository _tipoVeiculoRepository;
+       public TipoVeiculo Tipo { get; set; }
 
-        public TipoVeiculoDB Tipo { get; set; }
-
-        public VeiculoDB()
+        public VeiculoRepository(ITipoVeiculoRepository tipoVeiculoRepository)
         {
-            this.Tipo = new TipoVeiculoDB();    
+            this._tipoVeiculoRepository = tipoVeiculoRepository;
+            this.Tipo = new TipoVeiculo();    
         }
 
-        public List<VeiculoDB> List()
+        public List<Veiculo> List()
         {
-            List<VeiculoDB> listTipos = new List<VeiculoDB>();
+            List<Veiculo> listVeiculos = new List<Veiculo>();
             try
             {
                 string sqlVeiculos = "select * from veiculo order by id";
@@ -39,18 +35,18 @@ namespace Curso.Data.DB
                         {
                             while (reader.Read())
                             {
-                                VeiculoDB veiculoDB = new VeiculoDB();
-                                veiculoDB.Id = reader.GetInt32("id");
-                                veiculoDB.Placa = reader.GetString("placa");
-                                veiculoDB.Ano = reader.GetInt32("ano");
-                                veiculoDB.Cor = reader.GetString("cor");
-                                veiculoDB.Marca = reader.GetString("marca");
-                                veiculoDB.Modelo = reader.GetString("modelo");
+                                Veiculo veiculo = new Veiculo();
+                                veiculo.Id = reader.GetInt32("id");
+                                veiculo.Placa = reader.GetString("placa");
+                                veiculo.Ano = reader.GetInt32("ano");
+                                veiculo.Cor = reader.GetString("cor");
+                                veiculo.Marca = reader.GetString("marca");
+                                veiculo.Modelo = reader.GetString("modelo");
 
-                                TipoVeiculoDB tipoVeiculoDB = new TipoVeiculoDB().Get(reader.GetInt32("tipo"));
-                                veiculoDB.Tipo = tipoVeiculoDB;
+                                var tipoVeiculo = _tipoVeiculoRepository.Get(reader.GetInt32("tipo"));
+                                veiculo.Tipo = tipoVeiculo;
 
-                                listTipos.Add(veiculoDB);
+                                listVeiculos.Add(veiculo);
                             }
                         }
                         mySqlConnection.Close();
@@ -64,10 +60,10 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return listTipos;
+            return listVeiculos;
         }
 
-        public VeiculoDB Insert(VeiculoDB veiculoDB)
+        public Veiculo Insert(Veiculo veiculo)
         {
             try
             {
@@ -81,12 +77,12 @@ namespace Curso.Data.DB
                                         )
                                       values
                                         (
-                                          '{veiculoDB.Marca}',
-                                          '{veiculoDB.Modelo}',
-                                          '{veiculoDB.Cor}',
-                                          '{veiculoDB.Placa}',
-                                          '{veiculoDB.Tipo.Id}',
-                                          '{veiculoDB.Ano}'
+                                          '{veiculo.Marca}',
+                                          '{veiculo.Modelo}',
+                                          '{veiculo.Cor}',
+                                          '{veiculo.Placa}',
+                                          '{veiculo.Tipo.Id}',
+                                          '{veiculo.Ano}'
                                          ); SELECT LAST_INSERT_ID()";
 
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
@@ -95,7 +91,7 @@ namespace Curso.Data.DB
                     {
                         mySqlConnection.Open();
                         command.ExecuteNonQuery();
-                        veiculoDB.Id = command.LastInsertedId;
+                        veiculo.Id = command.LastInsertedId;
                         mySqlConnection.Close();
                     }
                 }
@@ -106,7 +102,7 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return veiculoDB;
+            return veiculo;
         }
 
         public bool Delete(long id)
@@ -132,19 +128,19 @@ namespace Curso.Data.DB
             }
         }
 
-        public VeiculoDB Update(VeiculoDB veiculoDB)
+        public Veiculo Update(Veiculo veiculo)
         {
             try
             {
                 string sqlUpdate = $@"update veiculo set 
-                                           modelo ='{veiculoDB.Modelo}',
-                                           marca = '{veiculoDB.Marca}',
-                                           cor = '{veiculoDB.Cor}',
-                                           placa = '{veiculoDB.Placa}',
-                                           ano = '{veiculoDB.Ano}',
-                                           tipo = '{veiculoDB.Tipo.Id}'
+                                           modelo ='{veiculo.Modelo}',
+                                           marca = '{veiculo.Marca}',
+                                           cor = '{veiculo.Cor}',
+                                           placa = '{veiculo.Placa}',
+                                           ano = '{veiculo.Ano}',
+                                           tipo = '{veiculo.Tipo.Id}'
                                       where 
-                                           id ={veiculoDB.Id}";
+                                           id ={veiculo.Id}";
                 using (MySqlConnection mySqlConnection = new MySqlConnection(_mySQLConnectionString))
                 {
                     using (MySqlCommand command = new MySqlCommand(sqlUpdate, mySqlConnection))
@@ -161,12 +157,12 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return veiculoDB;
+            return veiculo;
         }
 
-        public VeiculoDB Get(long id)
+        public Veiculo Get(long id)
         {
-            VeiculoDB veiculoDB = new VeiculoDB();
+            Veiculo veiculo = new Veiculo();
             try
             {
                 string sqlGet = $"select * from veiculo where id = {id}";
@@ -180,15 +176,15 @@ namespace Curso.Data.DB
                         {
                             while (reader.Read())
                             {                              
-                                veiculoDB.Id = reader.GetInt32("id");
-                                veiculoDB.Placa = reader.GetString("placa");
-                                veiculoDB.Ano = reader.GetInt32("ano");
-                                veiculoDB.Cor = reader.GetString("cor");
-                                veiculoDB.Marca = reader.GetString("marca");
-                                veiculoDB.Modelo = reader.GetString("modelo");
+                                veiculo.Id = reader.GetInt32("id");
+                                veiculo.Placa = reader.GetString("placa");
+                                veiculo.Ano = reader.GetInt32("ano");
+                                veiculo.Cor = reader.GetString("cor");
+                                veiculo.Marca = reader.GetString("marca");
+                                veiculo.Modelo = reader.GetString("modelo");
 
-                                TipoVeiculoDB tipoVeiculoDB = new TipoVeiculoDB().Get(reader.GetInt32("tipo"));
-                                veiculoDB.Tipo = tipoVeiculoDB;
+                                var tipoVeiculo = _tipoVeiculoRepository.Get(reader.GetInt32("tipo"));
+                                veiculo.Tipo = tipoVeiculo;
                             }
                         }
                         mySqlConnection.Close();
@@ -201,7 +197,7 @@ namespace Curso.Data.DB
                 throw;
             }
 
-            return veiculoDB;
+            return veiculo;
         }
     }
 }

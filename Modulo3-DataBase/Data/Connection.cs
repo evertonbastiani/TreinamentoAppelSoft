@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace Curso.Data
+namespace Curso.Repository
 {
     internal class Connection : IDisposable
     {

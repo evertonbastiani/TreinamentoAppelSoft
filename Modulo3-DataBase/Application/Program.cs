@@ -1,21 +1,20 @@
-﻿using Curso.Business.Classes;
-using Curso.Business.DTO;
-using Curso.Business.Interfaces;
-using Curso.Data.DB;
-using Curso.Data.Interfaces;
-using System.Runtime.CompilerServices;
+﻿using Curso.Domain.DTO;
+using Curso.Repository.Repository;
+using Curso.Service.Interfaces;
+using Curso.Service.Services;
 
 namespace Curso.Application
 {
     internal class Program
     {
-        static ITipoVeiculoDataOperaration _tipoVeiculoDataOperaration = new TipoVeiculoDB();
-        static ITipoVeiculoBusinessOperation _tipoVeiculoBusinessOperation = new TipoVeiculoBS(_tipoVeiculoDataOperaration);
-
-        static IVeiculoDataOperation _veiculoDataOperation = new VeiculoDB();
-        static IVeiculoBusinessOperation _veiculoBusinessOperation = new VeiculoBS(_veiculoDataOperation);
+        static VeiculoRepository? _veiculoRepository;
+        static TipoVeiculoRepository? _tipoVeiculoRepository;
+        static IServiceVeiculo? _veiculoService;
+        static IServiceTipoVeiculo? _serviceTipoVeiculo;
         static void Main(string[] args)
         {
+            InjectDependencies();
+
             do
             {
                 Console.WriteLine("Selecione a opção desejada");
@@ -76,7 +75,7 @@ namespace Curso.Application
                     case "7":
                         {
                             CadastrarTipoVeiculo();
-                            Console.ReadLine(); 
+                            Console.ReadLine();
                             break;
                         }
                     case "8":
@@ -95,12 +94,20 @@ namespace Curso.Application
                             Console.WriteLine("Opção inválida");
                             break;
                         }
-
                 }
 
 
             } while (true);
 
+        }
+
+        private static void InjectDependencies()
+        {
+            _tipoVeiculoRepository = new TipoVeiculoRepository();
+            _veiculoRepository = new VeiculoRepository(_tipoVeiculoRepository);
+            
+            _veiculoService = new ServiceVeiculo(_veiculoRepository);
+            _serviceTipoVeiculo = new ServiceTipoVeiculo(_tipoVeiculoRepository);
         }
 
         private static void ExcluirVeiculo()
@@ -116,7 +123,7 @@ namespace Curso.Application
                 var opcao = Console.ReadLine().ToUpper();
                 if (opcao == "S")
                 {
-                    bool excluido =  _veiculoBusinessOperation.Delete(veiculo.Id);
+                    bool excluido =  _veiculoService.Delete(veiculo.Id);
                     if (excluido)
                     {
                         Console.WriteLine("Veículo excluído com sucesso");
@@ -167,7 +174,7 @@ namespace Curso.Application
             var idTipo = Convert.ToInt64( Console.ReadLine());
             veiculo.Tipo = BuscarTipoVeiculo(idTipo);
 
-            veiculo = _veiculoBusinessOperation.Insert(veiculo);
+            veiculo = _veiculoService.Insert(veiculo);
             if (veiculo.Id > 0)
             {
                 Console.WriteLine("Veículo cadastrado com sucesso.");                
@@ -178,7 +185,7 @@ namespace Curso.Application
 
         private static void ListarVeiculos()
         {
-            List<VeiculoDTO> listVeiculoDto = _veiculoBusinessOperation.List();
+            List<VeiculoDTO> listVeiculoDto = _veiculoService.List();
             if(listVeiculoDto.Count == 0)
             {
                 Console.WriteLine("Ainda não foi cadastrado nenhum veículo.");
@@ -219,7 +226,7 @@ namespace Curso.Application
 
         private static VeiculoDTO BuscarVeiculo(long Id)
         {
-            return _veiculoBusinessOperation.Get(Id);
+            return _veiculoService.Get(Id);
         }
 
         private static void ExcluirTipoVeiculo()
@@ -235,7 +242,7 @@ namespace Curso.Application
                 var opcao = Console.ReadLine().ToUpper();
                 if (opcao == "S")
                 {
-                    bool excluido = _tipoVeiculoBusinessOperation.Delete(tipoExcluir.Id);
+                    bool excluido = _serviceTipoVeiculo.Delete(tipoExcluir.Id);
                     if (excluido)
                     {
                         Console.WriteLine("Tipo excluído com sucesso");
@@ -256,7 +263,7 @@ namespace Curso.Application
 
         private static TipoVeiculoDTO BuscarTipoVeiculo(long codigoTipo)
         {
-            return _tipoVeiculoBusinessOperation.Get(codigoTipo);
+            return _serviceTipoVeiculo.Get(codigoTipo);
         }
 
         private static void AtualizarTipoVeiculo()
@@ -273,7 +280,7 @@ namespace Curso.Application
             Console.WriteLine("Dados para atualizar");
             Console.Write("Descrição: ");
             tipoAtualizar.Descricao = Console.ReadLine();
-            tipoAtualizar = _tipoVeiculoBusinessOperation.Update(tipoAtualizar);
+            tipoAtualizar = _serviceTipoVeiculo.Update(tipoAtualizar);
 
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("Dados atualizadosl");
@@ -289,7 +296,7 @@ namespace Curso.Application
             Console.Write("Descrição: ");
             tipoVeiculoDTO.Descricao = Console.ReadLine();
 
-            tipoVeiculoDTO = _tipoVeiculoBusinessOperation.Insert(tipoVeiculoDTO);
+            tipoVeiculoDTO = _serviceTipoVeiculo.Insert(tipoVeiculoDTO);
             Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
             Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
            // Console.ReadLine();
@@ -298,7 +305,7 @@ namespace Curso.Application
         static void ListarTiposVeiculos()
         {
 
-            List<TipoVeiculoDTO> listTiposDTO = _tipoVeiculoBusinessOperation.List();
+            List<TipoVeiculoDTO> listTiposDTO = _serviceTipoVeiculo.List();
             foreach (var tipoVeiculo in listTiposDTO)
             {
                 Console.WriteLine($"Id: {tipoVeiculo.Id}");

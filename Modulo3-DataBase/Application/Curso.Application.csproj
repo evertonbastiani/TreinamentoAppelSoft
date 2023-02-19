@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\Curso.Business.csproj" />
-    <ProjectReference Include="..\Data\Curso.Data.csproj" />
+    <ProjectReference Include="..\Business\Curso.Domain.csproj" />
+    <ProjectReference Include="..\Service\Curso.Service\Curso.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
