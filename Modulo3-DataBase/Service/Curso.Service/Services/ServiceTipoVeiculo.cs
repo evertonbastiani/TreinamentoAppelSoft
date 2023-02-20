@@ -22,17 +22,31 @@ namespace Curso.Service.Services
 
         public bool Delete(long id)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentNullException("id", "O Id do tipo de produto não foi informado.");
+            }
+
             return _tipoVeiculoRepository.Delete(id);
         }
 
         public TipoVeiculoDTO Get(long id)
         {
+            if(id <= 0)
+            {
+                throw new ArgumentNullException("id","O Id do tipo de produto não foi informado.");
+            }
             var tipoVeiculo = _tipoVeiculoRepository.Get(id);
             return mapper.Map<TipoVeiculoDTO>(tipoVeiculo);           
         }
 
         public TipoVeiculoDTO Insert(TipoVeiculoDTO tipoVeiculoDTO)
         {
+            //Validação da descrição.
+            if (String.IsNullOrEmpty(tipoVeiculoDTO.Descricao)){
+                throw new ArgumentNullException("Descricao", "O campo descrição é obrigatório.");
+            }
+            
             TipoVeiculo tipoVeiculo = mapper.Map<TipoVeiculo>(tipoVeiculoDTO);
             tipoVeiculo = _tipoVeiculoRepository.Insert(tipoVeiculo);
             return mapper.Map<TipoVeiculoDTO>(tipoVeiculo);          
@@ -46,6 +60,12 @@ namespace Curso.Service.Services
 
         public TipoVeiculoDTO Update(TipoVeiculoDTO tipoVeiculoDTO)
         {
+            //Validação da descrição
+            if (String.IsNullOrEmpty(tipoVeiculoDTO.Descricao))
+            {
+                throw new ArgumentNullException("Descricao", "O campo descrição é obrigatório.");
+            }
+
             TipoVeiculo tipoVeiculo = mapper.Map<TipoVeiculo>(tipoVeiculoDTO);
             tipoVeiculo = _tipoVeiculoRepository.Update(tipoVeiculo);
 

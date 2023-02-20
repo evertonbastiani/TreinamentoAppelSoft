@@ -7,10 +7,10 @@ namespace Curso.Application
 {
     internal class Program
     {
-        static VeiculoRepository? _veiculoRepository;
-        static TipoVeiculoRepository? _tipoVeiculoRepository;
-        static IServiceVeiculo? _veiculoService;
-        static IServiceTipoVeiculo? _serviceTipoVeiculo;
+        private static VeiculoRepository _veiculoRepository;
+        private static TipoVeiculoRepository _tipoVeiculoRepository;
+        private static IServiceVeiculo _veiculoService;
+        private static IServiceTipoVeiculo _serviceTipoVeiculo;
         static void Main(string[] args)
         {
             InjectDependencies();
@@ -268,38 +268,52 @@ namespace Curso.Application
 
         private static void AtualizarTipoVeiculo()
         {
-            Console.Write("Informe o código do tipo: ");
-            var codigoTipo = Convert.ToInt64(Console.ReadLine());
+            try
+            {
+                Console.Write("Informe o código do tipo: ");
+                var codigoTipo = Convert.ToInt64(Console.ReadLine());
 
-            var tipoAtualizar = BuscarTipoVeiculo(codigoTipo);
-            Console.WriteLine("Dados do tipo atual");
-            Console.WriteLine($"Id: {tipoAtualizar.Id}");
-            Console.WriteLine($"Descrição: {tipoAtualizar.Descricao}");
-            Console.WriteLine("--------------------------------------");
+                var tipoAtualizar = BuscarTipoVeiculo(codigoTipo);
+                Console.WriteLine("Dados do tipo atual");
+                Console.WriteLine($"Id: {tipoAtualizar.Id}");
+                Console.WriteLine($"Descrição: {tipoAtualizar.Descricao}");
+                Console.WriteLine("--------------------------------------");
 
-            Console.WriteLine("Dados para atualizar");
-            Console.Write("Descrição: ");
-            tipoAtualizar.Descricao = Console.ReadLine();
-            tipoAtualizar = _serviceTipoVeiculo.Update(tipoAtualizar);
+                Console.WriteLine("Dados para atualizar");
+                Console.Write("Descrição: ");
+                tipoAtualizar.Descricao = Console.ReadLine();
+                tipoAtualizar = _serviceTipoVeiculo.Update(tipoAtualizar);
 
-            Console.WriteLine("--------------------------------------");
-            Console.WriteLine("Dados atualizadosl");
-            Console.WriteLine($"Id: {tipoAtualizar.Id}");
-            Console.WriteLine($"Descrição: {tipoAtualizar.Descricao}");
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("Dados atualizadosl");
+                Console.WriteLine($"Id: {tipoAtualizar.Id}");
+                Console.WriteLine($"Descrição: {tipoAtualizar.Descricao}");
+            }
+            catch (Exception erro)
+            {
+                Console.WriteLine($"Erro: {erro.Message}");
+            }           
 
         }
 
         private static void CadastrarTipoVeiculo()
         {
-            TipoVeiculoDTO tipoVeiculoDTO = new TipoVeiculoDTO();
+            try
+            {
+                TipoVeiculoDTO tipoVeiculoDTO = new TipoVeiculoDTO();
 
-            Console.Write("Descrição: ");
-            tipoVeiculoDTO.Descricao = Console.ReadLine();
+                Console.Write("Descrição: ");
+                tipoVeiculoDTO.Descricao = Console.ReadLine();
 
-            tipoVeiculoDTO = _serviceTipoVeiculo.Insert(tipoVeiculoDTO);
-            Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
-            Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
-           // Console.ReadLine();
+                tipoVeiculoDTO = _serviceTipoVeiculo.Insert(tipoVeiculoDTO);
+                Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
+                Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
+            }
+            catch (Exception erro)
+            {
+                Console.WriteLine($"Erro: {erro.Message}");
+            }          
+           
         }
 
         static void ListarTiposVeiculos()
