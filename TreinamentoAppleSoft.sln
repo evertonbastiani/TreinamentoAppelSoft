@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Application", "Modulo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{7A4D7B6E-EA31-40DB-8126-AF3C1B071065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curso.Service", "Modulo3-DataBase\Service\Curso.Service\Curso.Service.csproj", "{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.Service", "Modulo3-DataBase\Service\Curso.Service\Curso.Service.csproj", "{805ABB4E-AAD5-4696-8CA9-3BC377733D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

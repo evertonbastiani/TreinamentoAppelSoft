@@ -1,4 +1,5 @@
-﻿using Curso.Domain.Entities;
+﻿
+using Curso.Domain.Entities;
 using Curso.Repository.Repository;
 using System;
 using System.Collections.Generic;
