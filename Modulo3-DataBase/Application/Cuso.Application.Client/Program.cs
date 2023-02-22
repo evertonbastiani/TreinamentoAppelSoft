@@ -1,10 +1,13 @@
 ﻿
+using Cuso.Application.Client.Classes;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace Curso.Application
 {
     internal class Program
-    {       
+    {
+        const string urlBaseTipoVeiculo = "https://localhost:44348/TipoVeiculo/";
         static void Main(string[] args)
         {          
             Menu();
@@ -74,8 +77,8 @@ namespace Curso.Application
                         }
                     case "7":
                         {
-                          //  CadastrarTipoVeiculo();
-                           // Console.ReadLine();
+                            CadastrarTipoVeiculo();
+                           Console.ReadLine();
                             break;
                         }
                     case "8":
@@ -100,7 +103,7 @@ namespace Curso.Application
             } while (true);
         }
 
-       
+
         //private static void ExcluirVeiculo()
         //{
         //    try
@@ -376,25 +379,29 @@ namespace Curso.Application
 
         //}
 
-        //private static void CadastrarTipoVeiculo()
-        //{
-        //    try
-        //    {
-        //        TipoVeiculoDTO tipoVeiculoDTO = new TipoVeiculoDTO();
+        private static async void CadastrarTipoVeiculo()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var tipo = new TipoProdutoClient
+                    {
+                        Id=0,
+                        Descricao="Jeep"
+                    };
 
-        //        Console.Write("Descrição: ");
-        //        tipoVeiculoDTO.Descricao = Console.ReadLine();
+                    var json = JsonConvert.SerializeObject(tipo);
+                    var stringContent = new StringContent(json, System.Text.Encoding.UTF8);
+                    var result = await client.PostAsync($"{urlBaseTipoVeiculo}Insert", stringContent);
+                 }
+            }
+            catch (Exception erro)
+            {
+                Console.WriteLine($"Erro: {erro.Message}");
+            }
 
-        //        tipoVeiculoDTO = _serviceTipoVeiculo.Insert(tipoVeiculoDTO);
-        //        Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
-        //        Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
-        //    }
-        //    catch (Exception erro)
-        //    {
-        //        Console.WriteLine($"Erro: {erro.Message}");
-        //    }
-
-        //}
+        }
 
         static async void ListarTiposVeiculos()
         {
@@ -402,21 +409,18 @@ namespace Curso.Application
             {
                 using (var client = new HttpClient())
                 {
-                    var result = await client.GetStringAsync("https://localhost:44348/TipoVeiculo/List");
-                    var tipo = JsonConvert.DeserializeObject(result);
+                    var result = await client.GetStringAsync($"{urlBaseTipoVeiculo}List");
+                    var  list = JsonConvert.DeserializeObject<List<TipoProdutoClient>>(result);
+                    foreach (var tipoVeiculo in list)
+                    {
+                        Console.WriteLine("--------------------------------------");
 
-                    
+                        Console.WriteLine($"Id: {tipoVeiculo.Id}");
+                        Console.WriteLine($"Desrição: {tipoVeiculo.Descricao}");
+                    }
+
+
                 }
-
-
-                //List<TipoVeiculoDTO> listTiposDTO = _serviceTipoVeiculo.List();
-                //foreach (var tipoVeiculo in listTiposDTO)
-                //{
-                //    Console.WriteLine("--------------------------------------");
-
-                //    Console.WriteLine($"Id: {tipoVeiculo.Id}");
-                //    Console.WriteLine($"Desrição: {tipoVeiculo.Descricao}");
-                //}
             }
             catch (Exception erro)
             {
