@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Curso.Service.Interfaces
 {
-    public interface IServiceVeiculo
+    public interface IVeiculoService
     {
         List<VeiculoDTO> List();
         VeiculoDTO Insert(VeiculoDTO veiculoDB);

@@ -6,11 +6,11 @@ using Curso.Domain.Entities;
 
 namespace Curso.Service.Services
 {
-    public class ServiceVeiculo : ServiceBase, IServiceVeiculo
+    public class VeiculoService : ServiceBase, IVeiculoService
     {
         private readonly IVeiculoRepository _veiculoRepository;
 
-        public ServiceVeiculo(IVeiculoRepository veiculoRepository)
+        public VeiculoService(IVeiculoRepository veiculoRepository)
         {
             _veiculoRepository = veiculoRepository;
         }

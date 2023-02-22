@@ -11,11 +11,11 @@ using Curso.Domain.Entities;
 
 namespace Curso.Service.Services
 {
-    public class ServiceTipoVeiculo:ServiceBase, IServiceTipoVeiculo
+    public class TipoVeiculoService:ServiceBase, ITipoVeiculoService
     {
         private readonly ITipoVeiculoRepository _tipoVeiculoRepository;
 
-        public ServiceTipoVeiculo(ITipoVeiculoRepository tipoVeiculoRepository)
+        public TipoVeiculoService(ITipoVeiculoRepository tipoVeiculoRepository)
         {
             _tipoVeiculoRepository = tipoVeiculoRepository;
         }
