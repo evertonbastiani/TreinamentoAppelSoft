@@ -183,7 +183,7 @@ namespace Curso.Application
                 veiculo = _veiculoService.Update(veiculo);
                 if (veiculo.Id > 0)
                 {
-                    Console.WriteLine($"Veículo cadastrado com sucesso. {veiculo.Modelo}");
+                    Console.WriteLine($"Veículo atualizado com sucesso. {veiculo.Id} - {veiculo.Marca} {veiculo.Modelo}");                    
                 }
             }
             catch (Exception erro)
@@ -245,6 +245,7 @@ namespace Curso.Application
                 }
                 foreach (var veiculo in listVeiculoDto)
                 {
+                    Console.WriteLine("----------------------------------------------");
                     Console.WriteLine($"Id: {veiculo.Id}");
                     Console.WriteLine($"{veiculo.Marca} {veiculo.Modelo}");
                     Console.WriteLine($"Placa: {veiculo.Placa}");
@@ -417,6 +418,7 @@ namespace Curso.Application
                 List<TipoVeiculoDTO> listTiposDTO = _serviceTipoVeiculo.List();
                 foreach (var tipoVeiculo in listTiposDTO)
                 {
+                    Console.WriteLine("--------------------------------------");
                     Console.WriteLine($"{tipoVeiculo.Id} - {tipoVeiculo.Descricao}");                    
                 }
             }
