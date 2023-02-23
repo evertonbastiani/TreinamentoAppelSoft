@@ -1,9 +1,10 @@
-﻿using Curso.Domain.DTO;
+﻿
+using Curso.Domain.DTO;
 using Curso.Repository.Repository;
 
 namespace Curso.Service.Interfaces
 {
-    public interface IServiceTipoVeiculo
+    public interface ITipoVeiculoService
     {
         List<TipoVeiculoDTO> List();
         TipoVeiculoDTO Insert(TipoVeiculoDTO tipoVeiculoDB);
