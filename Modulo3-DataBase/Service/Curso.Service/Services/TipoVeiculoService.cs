@@ -1,13 +1,7 @@
-﻿using Curso.Repository.Repository;
-using Curso.Repository.Interfaces;
-using Curso.Domain.DTO;
-using Curso.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Curso.Domain.DTO;
 using Curso.Domain.Entities;
+using Curso.Repository.Interfaces;
+using Curso.Service.Interfaces;
 
 namespace Curso.Service.Services
 {

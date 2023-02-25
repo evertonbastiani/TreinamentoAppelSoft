@@ -1,8 +1,6 @@
 ﻿using Curso.Domain.Entities;
 using Curso.Repository.Context;
 using Curso.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
 
 namespace Curso.Repository.Repository
 {

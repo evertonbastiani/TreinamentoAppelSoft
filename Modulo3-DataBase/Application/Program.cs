@@ -5,9 +5,6 @@ using Curso.Service.Interfaces;
 using Curso.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Mysqlx;
 
 namespace Curso.Application
 {

@@ -1,6 +1,4 @@
 ﻿using Curso.Domain.DTO;
-using Curso.Domain.Entities;
-using Curso.Repository.Interfaces;
 using Curso.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +35,7 @@ namespace Curso.API.Controllers
         [Route("Insert")]
         public IActionResult Insert(TipoVeiculoDTO tipoVeiculoDTO)
         {
-            return Ok(_tipoVeiculoService.Insert(tipoVeiculoDTO));
+            return Ok(_tipoVeiculoService.Insert(tipoVeiculoDTO));            
         }
 
         [HttpPut]

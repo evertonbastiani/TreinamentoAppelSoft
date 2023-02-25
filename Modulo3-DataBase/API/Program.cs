@@ -11,16 +11,13 @@ namespace Curso.API
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);          
-                       
-
+            var builder = WebApplication.CreateBuilder(args);  
+            
             builder.Services.AddDbContext<CursoDBContext>(options =>
             {
                 var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
                 var connectionMysql = config["ConnectionStrings:CursoAppelSoft"].ToString();
                 options.UseMySQL(builder.Configuration.GetConnectionString("CursoAppelSoft"));
-
-
             });
 
             builder.Services.AddControllers();
@@ -28,7 +25,6 @@ namespace Curso.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-                 
 
             #region Repositories
 
@@ -43,7 +39,6 @@ namespace Curso.API
             builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 
             #endregion
-
 
             var app = builder.Build();
 
