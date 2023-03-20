@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Curso.Domain.Entities
 {
-    public class TipoVeiculo
+    [Table("tipo_veiculo")]
+    public class TipoVeiculo 
     {
+        [Key]
         public long Id { get; set; }
 
-        //[Required(ErrorMessage = "O campo descrição é obrigatório.")]
         public string? Descricao { get; set; }
     }
 }

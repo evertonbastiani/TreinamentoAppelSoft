@@ -1,8 +1,10 @@
 ﻿using Curso.Domain.DTO;
+using Curso.Repository.Context;
 using Curso.Repository.Repository;
 using Curso.Service.Interfaces;
 using Curso.Service.Services;
-using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Curso.Application
 {
@@ -11,11 +13,10 @@ namespace Curso.Application
         private static VeiculoRepository _veiculoRepository;
         private static TipoVeiculoRepository _tipoVeiculoRepository;
         private static IVeiculoService _veiculoService;
-        private static ITipoVeiculoService _tipoVeiculoService;
+        private static ITipoVeiculoService _serviceTipoVeiculo;
         static void Main(string[] args)
         {
-            InjectDependencies();
-
+            SetupProject();
             Menu();
 
         }
@@ -94,7 +95,7 @@ namespace Curso.Application
                         }
                     case "9":
                         {
-                            // ExcluirTipoVeiculo();
+                            ExcluirTipoVeiculo();
                             break;
                         }
 
@@ -109,88 +110,114 @@ namespace Curso.Application
             } while (true);
         }
 
-        private static void InjectDependencies()
+        private static void SetupProject()
         {
-            _tipoVeiculoRepository = new TipoVeiculoRepository();
-            _veiculoRepository = new VeiculoRepository(_tipoVeiculoRepository);
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var connectionMysql = config["ConnectionStrings:CursoAppelSoft"].ToString();
+
+            var optionsBuilder = new DbContextOptionsBuilder<CursoDBContext>();
+            optionsBuilder.UseMySQL(connectionMysql);
+
+            CursoDBContext context = new CursoDBContext(optionsBuilder.Options);
+
+            _tipoVeiculoRepository = new TipoVeiculoRepository(context);
+            _veiculoRepository = new VeiculoRepository(_tipoVeiculoRepository, context);
 
             _veiculoService = new VeiculoService(_veiculoRepository);
-            _tipoVeiculoService = new TipoVeiculoService(_tipoVeiculoRepository);
+            _serviceTipoVeiculo = new TipoVeiculoService(_tipoVeiculoRepository);
         }
 
         private static void ExcluirVeiculo()
         {
-            Console.Write("Informe o código do veículo: ");
-            var codigo = Convert.ToInt64(Console.ReadLine());
-
-            var veiculo = BuscarVeiculo(codigo);
-            if (veiculo != null && veiculo.Id > 0)
+            try
             {
-                Console.WriteLine($"Tem certeza que deseja excluir o veículo {veiculo.Marca} {veiculo.Modelo} ? S/N: ");
+                Console.Write("Informe o código do veículo: ");
+                var codigo = Convert.ToInt64(Console.ReadLine());
 
-                var opcao = Console.ReadLine().ToUpper();
-                if (opcao == "S")
+                var veiculo = BuscarVeiculo(codigo);
+                if (veiculo != null && veiculo.Id > 0)
                 {
-                    bool excluido = _veiculoService.Delete(veiculo.Id);
-                    if (excluido)
+                    Console.WriteLine($"Tem certeza que deseja excluir o veículo {veiculo.Marca} {veiculo.Modelo} ? S/N: ");
+
+                    var opcao = Console.ReadLine().ToUpper();
+                    if (opcao == "S")
                     {
-                        Console.WriteLine("Veículo excluído com sucesso");
+                        bool excluido = _veiculoService.Delete(veiculo.Id);
+                        if (excluido)
+                        {
+                            Console.WriteLine("Veículo excluído com sucesso");
+                        }
                     }
+                    else
+                    {
+                        Console.WriteLine("Operação cancelada");
+                    }
+
                 }
                 else
                 {
-                    Console.WriteLine("Operação cancelada");
+                    Console.WriteLine("Veículo não encontrado.");
                 }
-
             }
-            else
+            catch (Exception erro)
             {
-                Console.WriteLine("Veículo não encontrado.");
+                Console.WriteLine($"Error: {erro.Message}");
             }
+           
         }
 
         private static void AtualizarVeiculo()
         {
             try
             {
-                VeiculoDTO veiculo = new VeiculoDTO();
-                Console.Write("Informe o código: ");
+                Console.Write("Informe o código do veículo: ");
                 var codigo = Convert.ToInt64(Console.ReadLine());
-                veiculo = BuscarVeiculo(codigo);
-
-                Console.Write("Placa: ");
-                veiculo.Placa = Console.ReadLine();
-
-                Console.Write("Marca: ");
-                veiculo.Marca = Console.ReadLine();
-
-                Console.Write("Modelo: ");
-                veiculo.Modelo = Console.ReadLine();
-
-                Console.Write("Cor: ");
-                veiculo.Cor = Console.ReadLine();
-
-                Console.Write("Ano: ");
-                veiculo.Ano = Convert.ToInt16(Console.ReadLine());
-
-                Console.WriteLine();
-                Console.WriteLine("Selecione o tipo:");
-                ListarTiposVeiculos();
-
-                Console.Write("Tipo: ");
-                var idTipo = Convert.ToInt64(Console.ReadLine());
-                veiculo.Tipo = BuscarTipoVeiculo(idTipo);
-
-                veiculo = _veiculoService.Update(veiculo);
-                if (veiculo.Id > 0)
+                var veiculo = BuscarVeiculo(codigo);
+                if (veiculo != null && veiculo.Id > 0)
                 {
-                    Console.WriteLine($"Veículo atualizado com sucesso. {veiculo.Id} - {veiculo.Marca} {veiculo.Modelo}");
+                    Console.Write("Placa: ");
+                    veiculo.Placa = Console.ReadLine();
+
+                    Console.Write("Marca: ");
+                    veiculo.Marca = Console.ReadLine();
+
+                    Console.Write("Modelo: ");
+                    veiculo.Modelo = Console.ReadLine();
+
+                    Console.Write("Cor: ");
+                    veiculo.Cor = Console.ReadLine();
+
+                    Console.Write("Ano: ");
+                    veiculo.Ano = Convert.ToInt16(Console.ReadLine());
+
+                    Console.WriteLine();
+                    Console.WriteLine("Selecione o tipo:");
+                    ListarTiposVeiculos();
+
+
+                    Console.Write("Tipo: ");
+                    var idTipo = Convert.ToInt64(Console.ReadLine());
+                    TipoVeiculoDTO tipoVeiculoDTO = BuscarTipoVeiculo(idTipo);
+                    veiculo.Tipo = tipoVeiculoDTO;
+
+                    veiculo = _veiculoService.Update(veiculo);
+                    if (veiculo.Id > 0)
+                    {
+                        Console.WriteLine($"Veículo atualizado com sucesso. {veiculo.Id} - {veiculo.Marca} {veiculo.Modelo}");
+                    }
+
                 }
+                else
+                {
+                    Console.WriteLine("Veículo não encontrado.");
+                }
+
             }
             catch (Exception erro)
             {
-                Console.WriteLine($"Erro: {erro.Message}");
+                Console.WriteLine($"Error: {erro.Message}");
             }
+
         }
 
         private static void CadastrarVeiculo()
@@ -260,7 +287,6 @@ namespace Curso.Application
             {
                 Console.WriteLine($"Erro: {erro.Message}");
             }
-
         }
 
         private static void BuscarVeiculo()
@@ -290,21 +316,11 @@ namespace Curso.Application
             {
                 Console.WriteLine($"Erro: {erro.Message}");
             }
-
         }
 
         private static VeiculoDTO BuscarVeiculo(long Id)
         {
-            VeiculoDTO veiculoDTO = new VeiculoDTO();
-            try
-            {
-                veiculoDTO = _veiculoService.Get(Id);
-            }
-            catch (Exception erro)
-            {
-                Console.WriteLine($"Erro: {erro.Message}");
-            }
-            return veiculoDTO;
+            return _veiculoService.Get(Id);
         }
 
         private static void ExcluirTipoVeiculo()
@@ -322,10 +338,14 @@ namespace Curso.Application
                     var opcao = Console.ReadLine().ToUpper();
                     if (opcao == "S")
                     {
-                        bool excluido = _tipoVeiculoService.Delete(tipoExcluir.Id);
+                        bool excluido = _serviceTipoVeiculo.Delete(tipoExcluir.Id);
                         if (excluido)
                         {
                             Console.WriteLine("Tipo excluído com sucesso");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Não foi possível realizar a operação");
                         }
                     }
                     else
@@ -343,20 +363,13 @@ namespace Curso.Application
             {
                 Console.WriteLine($"Erro: {erro.Message}");
             }
+
+
         }
 
         private static TipoVeiculoDTO BuscarTipoVeiculo(long codigoTipo)
         {
-            TipoVeiculoDTO tipoVeiculoDTO = new TipoVeiculoDTO();
-            try
-            {
-                tipoVeiculoDTO = _tipoVeiculoService.Get(codigoTipo);
-            }
-            catch (Exception erro)
-            {
-                Console.WriteLine($"Erro: {erro.Message}");
-            }
-            return tipoVeiculoDTO;
+            return _serviceTipoVeiculo.Get(codigoTipo);
         }
 
         private static void AtualizarTipoVeiculo()
@@ -375,7 +388,7 @@ namespace Curso.Application
                 Console.WriteLine("Dados para atualizar");
                 Console.Write("Descrição: ");
                 tipoAtualizar.Descricao = Console.ReadLine();
-                tipoAtualizar = _tipoVeiculoService.Update(tipoAtualizar);
+                tipoAtualizar = _serviceTipoVeiculo.Update(tipoAtualizar);
 
                 Console.WriteLine("--------------------------------------");
                 Console.WriteLine("Dados atualizadosl");
@@ -398,12 +411,9 @@ namespace Curso.Application
                 Console.Write("Descrição: ");
                 tipoVeiculoDTO.Descricao = Console.ReadLine();
 
-                tipoVeiculoDTO = _tipoVeiculoService.Insert(tipoVeiculoDTO);
-                if (tipoVeiculoDTO != null && tipoVeiculoDTO.Id > 0)
-                {
-                    Console.WriteLine($"Tipo cadastrado com sucesso: {tipoVeiculoDTO.Id} - {tipoVeiculoDTO.Descricao}");
-                }
-
+                tipoVeiculoDTO = _serviceTipoVeiculo.Insert(tipoVeiculoDTO);
+                Console.WriteLine($"Id: {tipoVeiculoDTO.Id}");
+                Console.WriteLine($"Descrição: {tipoVeiculoDTO.Descricao}");
             }
             catch (Exception erro)
             {
@@ -416,17 +426,20 @@ namespace Curso.Application
         {
             try
             {
-                List<TipoVeiculoDTO> listTiposDTO = _tipoVeiculoService.List();
+                List<TipoVeiculoDTO> listTiposDTO = _serviceTipoVeiculo.List();
                 foreach (var tipoVeiculo in listTiposDTO)
                 {
                     Console.WriteLine("--------------------------------------");
-                    Console.WriteLine($"{tipoVeiculo.Id} - {tipoVeiculo.Descricao}");
+
+                    Console.WriteLine($"Id: {tipoVeiculo.Id}");
+                    Console.WriteLine($"Desrição: {tipoVeiculo.Descricao}");
                 }
             }
             catch (Exception erro)
             {
-                Console.WriteLine($"Erro: {erro.Message}");
+                Console.WriteLine($"Error: {erro.Message}");
             }
+           
 
         }
 

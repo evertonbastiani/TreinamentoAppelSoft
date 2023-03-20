@@ -1,6 +1,4 @@
-﻿
-using Curso.Domain.DTO;
-using Curso.Repository.Repository;
+﻿using Curso.Domain.DTO;
 
 namespace Curso.Service.Interfaces
 {

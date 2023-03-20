@@ -1,11 +1,4 @@
-﻿
-using Curso.Domain.Entities;
-using Curso.Repository.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Curso.Domain.Entities;
 
 namespace Curso.Repository.Interfaces
 {

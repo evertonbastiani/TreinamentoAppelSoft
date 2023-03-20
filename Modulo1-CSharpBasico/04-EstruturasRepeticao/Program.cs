@@ -1,6 +1,6 @@
 ﻿namespace EstruturasRepeticao
 {
-	internal class Program
+    internal class Program
 	{
 		//arrays
 		static int[] arrayNumeros = { 1, 3, 5, 6 };
