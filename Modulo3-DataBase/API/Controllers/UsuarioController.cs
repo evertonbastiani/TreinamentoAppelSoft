@@ -1,4 +1,6 @@
-﻿using Curso.Domain.DTO;
+﻿using Curso.API.Model;
+using Curso.Domain.DTO;
+using Curso.Service.Authentication;
 using Curso.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +41,15 @@ namespace Curso.API.Controllers
         [Authorize()]
         public IActionResult Insert(UsuarioDTO usuarioDto)
         {
-            return Ok(_usuarioService.Insert(usuarioDto));
+            try
+            {
+                return Ok(_usuarioService.Insert(usuarioDto));
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+           
         }
 
         [HttpPut]
@@ -58,12 +68,27 @@ namespace Curso.API.Controllers
             return Ok(_usuarioService.Delete(Id));
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public IActionResult Login(string login,string senha)
+
+        public IActionResult Login(LoginRequestModel credenciais)
         {
-            return Ok(_usuarioService.Login(login, senha));
+            var loggedIn = _usuarioService.Login(credenciais.Login, credenciais.Password);
+            if(loggedIn != null)
+            {
+                LoginRequestResponse response = new LoginRequestResponse();
+
+                response.Login = loggedIn.Login;
+                response.Id = loggedIn.Id;
+                response.Token = _usuarioService.GetAccessToken(response.Login);
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+           
         }
     }
 }

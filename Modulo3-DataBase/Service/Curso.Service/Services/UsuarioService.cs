@@ -80,7 +80,7 @@ namespace Curso.Service.Services
             if(usuario != null)
             {
                 UsuarioDTO usuarioDTO = mapper.Map<UsuarioDTO>(usuario);
-                usuarioDTO.Token = TokenGeneration.GenerateToken(usuarioDTO.Login);
+                //usuarioDTO.Token = TokenGeneration.GenerateToken(usuarioDTO.Login);
                 return usuarioDTO;
             }
             else
@@ -133,6 +133,10 @@ namespace Curso.Service.Services
                 throw ex;
             }            
         }
-       
+
+        public string GetAccessToken(string login)
+        {
+            return TokenGeneration.GenerateToken(login);
+        }
     }
 }
