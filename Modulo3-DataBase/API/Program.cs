@@ -1,9 +1,15 @@
 using Curso.Repository.Context;
 using Curso.Repository.Interfaces;
 using Curso.Repository.Repository;
+using Curso.Service.Authentication;
 using Curso.Service.Interfaces;
 using Curso.Service.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Curso.API
 {
@@ -30,6 +36,7 @@ namespace Curso.API
 
             builder.Services.AddScoped<ITipoVeiculoRepository, TipoVeiculoRepository>();
             builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             #endregion
 
@@ -37,6 +44,30 @@ namespace Curso.API
 
             builder.Services.AddScoped<ITipoVeiculoService, TipoVeiculoService>();
             builder.Services.AddScoped<IVeiculoService, VeiculoService>();
+            builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+            #endregion
+
+            #region Authentication
+
+            var key = Encoding.ASCII.GetBytes(AuthenticationSecret.CursoAPISecret);
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             #endregion
 
@@ -50,7 +81,10 @@ namespace Curso.API
                 
             }
 
+           
+
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
 

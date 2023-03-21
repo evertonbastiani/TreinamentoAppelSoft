@@ -10,6 +10,8 @@ namespace Curso.Repository.Context
         public DbSet<TipoVeiculo> TipoVeiculo { get; set; }
         public DbSet<Veiculo> Veiculo { get; set; }
 
+        public DbSet<Usuario> Usuario { get; set; }
+
         
 
     }

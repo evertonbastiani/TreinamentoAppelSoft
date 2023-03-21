@@ -1,5 +1,6 @@
 ﻿using Curso.Domain.DTO;
 using Curso.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.API.Controllers
@@ -17,6 +18,7 @@ namespace Curso.API.Controllers
 
         [HttpGet]
         [Route("Get")]
+        [Authorize()]
         public IActionResult Get(long Id)
         {
             var veiculo = _veiculoService.Get(Id);
@@ -25,6 +27,7 @@ namespace Curso.API.Controllers
 
         [HttpGet]
         [Route("List")]
+        [Authorize()]
         public IActionResult List()
         {
             List<VeiculoDTO> listVeiculos = _veiculoService.List();
@@ -33,6 +36,7 @@ namespace Curso.API.Controllers
 
         [HttpPost]
         [Route("Insert")]
+        [Authorize()]
         public IActionResult Insert(VeiculoDTO veiculoDTO)
         {
             return Ok(_veiculoService.Insert(veiculoDTO));
@@ -40,6 +44,7 @@ namespace Curso.API.Controllers
 
         [HttpPut]
         [Route("Update")]
+        [Authorize()]
         public IActionResult Update(VeiculoDTO veiculoDTO)
         {
             return Ok(_veiculoService.Update(veiculoDTO));
@@ -47,6 +52,7 @@ namespace Curso.API.Controllers
 
         [HttpDelete]
         [Route("Delete")]
+        [Authorize()]
         public IActionResult Delete(long Id)
         {
             return Ok(_veiculoService.Delete(Id));

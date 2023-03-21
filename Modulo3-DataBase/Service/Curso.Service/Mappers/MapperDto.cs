@@ -16,6 +16,9 @@ namespace Curso.Service.Mappers
                 cfg.CreateMap<Veiculo, VeiculoDTO>();
                 cfg.CreateMap<VeiculoDTO, Veiculo>();
 
+                cfg.CreateMap<Usuario,UsuarioDTO>();
+                cfg.CreateMap<UsuarioDTO, Usuario>();
+
 
             });
             return mapperConfig.CreateMapper();
