@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibFrotaCerta", "Modulo2-PO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsandoHeranca", "Modulo2-POO\03-Heranca\UsandoHeranca\UsandoHeranca.csproj", "{19E3B12B-BE93-4AA6-9BB4-011FDA7869B6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modulo 3 - DataBase", "Modulo 3 - DataBase", "{E4C17A4F-609F-41BA-AB86-50DB1D4757C9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modulo 3 - API-DataBase", "Modulo 3 - API-DataBase", "{E4C17A4F-609F-41BA-AB86-50DB1D4757C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{9C942C32-02AC-4ECC-8B81-97F8BC520F3D}"
 EndProject
