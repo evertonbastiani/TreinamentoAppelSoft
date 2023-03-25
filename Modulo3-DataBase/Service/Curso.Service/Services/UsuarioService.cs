@@ -1,7 +1,6 @@
 ﻿using Curso.Domain.DTO;
 using Curso.Domain.Entities;
 using Curso.Repository.Interfaces;
-using Curso.Service.Authentication;
 using Curso.Service.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
@@ -79,8 +78,7 @@ namespace Curso.Service.Services
             var usuario = _usuarioRepository.Login(login, senhaCriptografada);
             if(usuario != null)
             {
-                UsuarioDTO usuarioDTO = mapper.Map<UsuarioDTO>(usuario);
-                //usuarioDTO.Token = TokenGeneration.GenerateToken(usuarioDTO.Login);
+                UsuarioDTO usuarioDTO = mapper.Map<UsuarioDTO>(usuario);              
                 return usuarioDTO;
             }
             else
@@ -134,9 +132,5 @@ namespace Curso.Service.Services
             }            
         }
 
-        public string GetAccessToken(string login)
-        {
-            return TokenGeneration.GenerateToken(login);
-        }
     }
 }

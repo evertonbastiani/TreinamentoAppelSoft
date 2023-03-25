@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Curso.Service.Authentication
+namespace Curso.API.Authentication
 {
     public static class TokenGeneration
     {

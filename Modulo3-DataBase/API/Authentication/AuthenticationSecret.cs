@@ -1,4 +1,4 @@
-﻿namespace Curso.Service.Authentication
+﻿namespace Curso.API.Authentication
 {
     public static class AuthenticationSecret
     {

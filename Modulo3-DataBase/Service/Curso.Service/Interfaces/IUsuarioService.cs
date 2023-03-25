@@ -16,7 +16,6 @@ namespace Curso.Service.Interfaces
         UsuarioDTO Get(long id);
 
         UsuarioDTO Login(string login, string senha);
-
-        string GetAccessToken(string login);
+        
     }
 }

@@ -1,14 +1,12 @@
+using Curso.API.Authentication;
 using Curso.Repository.Context;
 using Curso.Repository.Interfaces;
 using Curso.Repository.Repository;
-using Curso.Service.Authentication;
 using Curso.Service.Interfaces;
 using Curso.Service.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace Curso.API

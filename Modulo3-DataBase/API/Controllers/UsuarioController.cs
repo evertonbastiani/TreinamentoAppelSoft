@@ -1,6 +1,6 @@
-﻿using Curso.API.Model;
+﻿using Curso.API.Authentication;
+using Curso.API.Model;
 using Curso.Domain.DTO;
-using Curso.Service.Authentication;
 using Curso.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -81,7 +81,7 @@ namespace Curso.API.Controllers
 
                 response.Login = loggedIn.Login;
                 response.Id = loggedIn.Id;
-                response.Token = _usuarioService.GetAccessToken(response.Login);
+                response.Token = TokenGeneration.GenerateToken(response.Login);    //_usuarioService.GetAccessToken(response.Login);
                 return Ok(response);
             }
             else
