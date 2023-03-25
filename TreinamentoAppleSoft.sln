@@ -67,6 +67,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{4510AF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Web", "Modulo3-DataBase\Client\Client.Web\Client.Web.csproj", "{F713340E-6C4A-4B46-BE37-A649EABAE5D3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppelSoft.Mutitenancy.API", "AppelSoft.Mutitanency.API\AppelSoft.Mutitenancy.API\AppelSoft.Mutitenancy.API.csproj", "{B9834865-93DB-4633-9220-8CF46821AAD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{F713340E-6C4A-4B46-BE37-A649EABAE5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F713340E-6C4A-4B46-BE37-A649EABAE5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F713340E-6C4A-4B46-BE37-A649EABAE5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9834865-93DB-4633-9220-8CF46821AAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9834865-93DB-4633-9220-8CF46821AAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9834865-93DB-4633-9220-8CF46821AAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9834865-93DB-4633-9220-8CF46821AAD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{B2F51A35-6E30-4833-A9F3-3D7F7871DF35} = {4987F5B0-3796-47EA-AD4E-F614410FD40A}
 		{4510AFD5-2313-4F98-BE48-FDC0A64E50B7} = {E4C17A4F-609F-41BA-AB86-50DB1D4757C9}
 		{F713340E-6C4A-4B46-BE37-A649EABAE5D3} = {4510AFD5-2313-4F98-BE48-FDC0A64E50B7}
+		{B9834865-93DB-4633-9220-8CF46821AAD7} = {4987F5B0-3796-47EA-AD4E-F614410FD40A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {372D840A-F2A4-45B6-9CAE-EAB0C9A02A79}
