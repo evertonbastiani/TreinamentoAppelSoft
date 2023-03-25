@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "9f84a6e9-5473-45c2-b47f-de4fa7eeafb8",
+		"name": "CursoDotNet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3244830"
+	},
+	"item": [
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImV2ZXJ0b25iYXN0aWFuaUBnbWFpbC5jb20iLCJuYmYiOjE2Nzk3MDM5MjYsImV4cCI6MTY3OTcxMTEyNiwiaWF0IjoxNjc5NzAzOTI2fQ.TnTeULHB2hVZEf_5xlj2CrftmFhvoy3w-l4JJUN7tpk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44348/Usuario/List",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44348",
+							"path": [
+								"Usuario",
+								"List"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"login\": \"evertonbastiani@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44348/Usuario/Login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44348",
+							"path": [
+								"Usuario",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Veiculos",
+			"item": [
+				{
+					"name": "Listar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImV2ZXJ0b25iYXN0aWFuaUBnbWFpbC5jb20iLCJuYmYiOjE2Nzk3MDcyMDksImV4cCI6MTY3OTcxNDQwOSwiaWF0IjoxNjc5NzA3MjA5fQ.-nkm8b17IBP8LetjnNSR8eyLHxZZhVwjCglwWpu5HiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44348/Veiculo/List",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44348",
+							"path": [
+								"Veiculo",
+								"List"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImV2ZXJ0b25iYXN0aWFuaUBnbWFpbC5jb20iLCJuYmYiOjE2Nzk3MDQyMDAsImV4cCI6MTY3OTcxMTQwMCwiaWF0IjoxNjc5NzA0MjAwfQ.aLVcrxSJvkAd7jVOXK8K8_UTAl79szv8AYzqhCJj2Y8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44348/Veiculo/Get?Id=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44348",
+							"path": [
+								"Veiculo",
+								"Get"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localBaseUrl",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"login\": \"evertonbastiani@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localBaseUrl}}/Usuario/Login",
+					"host": [
+						"{{localBaseUrl}}"
+					],
+					"path": [
+						"Usuario",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
